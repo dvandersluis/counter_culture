@@ -82,6 +82,9 @@ module CounterCulture
 
         # iterate over all the possible counter cache column names
         counter_column_names.each do |where, column_name|
+          # If the where is a proc, call it
+          where = where.call if where.is_a?(Proc)
+
           # if the column name is nil, that means those records don't affect
           # counts; we don't need to do anything in that case. but we allow
           # specifying that condition regardless to make the syntax less
